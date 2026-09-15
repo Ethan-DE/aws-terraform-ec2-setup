@@ -1,36 +1,32 @@
-# AWS EC2 Terraform Setup
+# AWS EC2 with Terraform
 
-This project contains Terraform configuration files to provision a basic AWS EC2 instance in the `us-east-1` region.
+A small Terraform project for bringing up a public EC2 instance inside its own VPC. I kept the layout simple enough to review quickly, but it includes the network pieces I would expect around the instance rather than relying on the default VPC.
 
-## Features
+## What it creates
 
-- Deploys a single EC2 instance (Amazon Linux 2)
-- Uses `t2.micro` (Free Tier eligible)
-- Easily modifiable to suit larger infrastructure deployments
+- VPC and public subnet
+- Internet gateway and default route
+- Security group with HTTP open and SSH restricted to a supplied CIDR
+- Amazon Linux 2023 EC2 instance
+- Instance ID and public IP outputs
 
-## Usage
+## Use
 
-1. Ensure you have AWS CLI configured or AWS credentials set.
-2. Initialize Terraform:
+Copy the example values and replace the SSH CIDR with your own public IP.
 
-3. Preview the execution plan:
+```bash
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform fmt -check
+terraform validate
+terraform plan
+terraform apply
+```
 
-4. Apply the configuration:
+When finished:
 
+```bash
+terraform destroy
+```
 
-## Prerequisites
-
-- Terraform installed locally
-- AWS account and access credentials
-
-## Status
-
-Tested with:
-- Terraform v1.5+
-- AWS CLI v2+
-
-## Author
-
-Ethan E  
-Email: eradirideitie@gmail.com  
-Open to relocation and remote DevOps roles
+`terraform.tfvars` and state files are ignored. The example file is safe to keep in the repository.
